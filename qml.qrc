@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>Fonts/Roboto-Bold.ttf</file>
+        <file>Fonts/Roboto-Light.ttf</file>
+        <file>Fonts/Roboto-Medium.ttf</file>
+        <file>Fonts/Roboto-Regular.ttf</file>
+        <file>SelectView.qml</file>
+        <file>ConfirmView.qml</file>
+        <file>EditedTextField.qml</file>
+    </qresource>
+</RCC>
