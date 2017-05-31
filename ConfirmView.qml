@@ -5,6 +5,7 @@ import QtQuick.Controls.Material 2.1
 import QtGraphicalEffects 1.0
 
 Item {
+    property bool showTT: false
     id: confirmRoot
     visible: true
     width: 640
@@ -103,6 +104,7 @@ Item {
                 placeHolder: qsTr("Nazwisko")
                 textProperty: viewModel.userSurname
                 regex: qsTr("[^\\000-\\037\\041-@]+")
+                showTooltip: showTT
             }
 
 //            TextField{
@@ -126,6 +128,7 @@ Item {
                 placeHolder: qsTr("Email")
                 textProperty: viewModel.userEmail
                 regex: qsTr("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*")
+                showTooltip: showTT
             }
             EditedTextField{
                 id:phoneNumberTextField
@@ -136,6 +139,7 @@ Item {
                 placeHolder: qsTr("Numer")
                 textProperty: viewModel.userPhoneNumber
                 regex: qsTr("^[(]{0,1}[0-9]{3}[)]{0,1}[-\\s\\.]{0,1}[0-9]{3}[-\\s\\.]{0,1}[0-9]{4}$")
+                showTooltip: showTT
             }
 
             Row{
