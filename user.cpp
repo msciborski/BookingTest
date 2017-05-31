@@ -1,5 +1,5 @@
 #include "user.h"
-
+/*constructors*/
 User::User(QObject *parent) : QObject(parent)
 {
 
@@ -17,6 +17,7 @@ User::User(QString name, QString surname, QString email, QString number){
     _number = number;
 }
 
+/*getters/setters*/
 void User::setName(QString name){
     _name = name;
     emit nameChanged();

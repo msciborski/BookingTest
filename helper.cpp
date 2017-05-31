@@ -1,5 +1,6 @@
 #include "helper.h"
-
+/*Static class, which creates cities, hotels, rooms, and some reservations. Every method is static, cuz class dosent contain infomration.
+This is typicall utilty class.*/
 Helper::Helper()
 {
 
@@ -15,7 +16,7 @@ QStringList Helper::createStartDate(){
     }
     return tempStartDates;
 }
-
+//Creating Cities
 QList<QObject*> Helper::createCity(QObject *parent){
     QList<QObject*> tempCity;
     City *poznan = new City(parent, "Poznań");
@@ -45,6 +46,7 @@ QList<QObject*> Helper::createCity(QObject *parent){
 
     return tempCity;
 }
+//Creating hotels
 QList<QObject*> Helper::temporaryHotels(QObject *parent, QString cityName){
     QList<QObject*> tempHotels;
     for(int i=1;i<=5;i++){

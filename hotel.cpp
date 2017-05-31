@@ -1,5 +1,5 @@
 #include "hotel.h"
-
+/*constructors*/
 Hotel::Hotel(QObject *parent) : QObject(parent) {
 
 }
@@ -12,6 +12,7 @@ Hotel::Hotel(QString name, QString address){
     _address = address;
 }
 
+/*getters/setters*/
 QString Hotel::name() const{
     return _name;
 }

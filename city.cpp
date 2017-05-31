@@ -1,5 +1,5 @@
 #include "city.h"
-
+/*constructors*/
 City::City(QString name) {
     _cityName = name;
 }
@@ -10,6 +10,7 @@ City::City(QObject *parent, QString name) : QObject(parent){
     _cityName = name;
 }
 
+/*getters/setters*/
 QString City::cityName() const{
     return _cityName;
 }

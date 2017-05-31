@@ -1,5 +1,6 @@
 #include "reservation.h"
 
+/*constructors*/
 Reservation::Reservation(){
 }
 Reservation::Reservation(QObject *parent) : QObject(parent){
@@ -17,6 +18,7 @@ Reservation::Reservation(QDate startDate, QDate endDate, User *user){
     _user = user;
 }
 
+/*getters/setters*/
 int Reservation::id() const{
     return _id;
 }

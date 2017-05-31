@@ -1,5 +1,6 @@
 #include "room.h"
 
+/*constructors*/
 Room::Room(QObject *parent) : QObject(parent) {
     QDate current = QDate::currentDate();
     QDate endYear(current.year(),12,31);
@@ -39,7 +40,7 @@ Room::Room(QObject *parent, QString name, double cost, int capacity) : QObject(p
     int days = current.daysTo(endYear);
     _ava.resize(days+1);
 }
-
+/*getters/setters*/
 QString Room::desc() const{
     return _desc;
 }
@@ -78,7 +79,8 @@ void Room::setListReservations(const QList<QObject*> &rl){
     _listReservations = rl;
     emit listReservationsChanged();
 }
-//Adds reservation to the list, and complement ava QVector, which contains information about...
+/*methods*/
+//Adds reservation to the list, and complement ava QVector, which is Vector of boolean(true= unavaiable, false= avaiable)
 void Room::addReservation(Reservation *reservation){
       QDate startReserv = reservation->startDate();
       QDate endReserv = reservation->endDate();
@@ -93,7 +95,6 @@ void Room::addReservation(Reservation *reservation){
       while(daysBetweenStartEnd >= 0){
           _ava[index] = true;
           index++;
-          //qDebug() << index << "\n";
           daysBetweenStartEnd--;
       }
       _listReservations.append(reservation);

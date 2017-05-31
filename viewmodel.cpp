@@ -1,5 +1,6 @@
 #include "viewmodel.h"
 
+/*constructors*/
 ViewModel::ViewModel()
 {
     _startDates = Helper::createStartDate();
@@ -14,6 +15,7 @@ ViewModel::ViewModel()
     _buttonVisibility = false;
 }
 
+/*getters/setters*/
 QStringList ViewModel::startDates() const{
     return _startDates;
 }
@@ -129,6 +131,7 @@ void ViewModel::setUserPhoneNumber(QString phoneNumber){
     emit userPhoneNumberChanged();
 }
 
+/*methods*/
 //Do poprawy jest ta funkcja//Na askach zrób
 bool ViewModel::isAvaiable(QList<QObject*> &reservations, const QDate &startDate, const QDate &endDate){
     bool avaiability = false;
@@ -260,7 +263,6 @@ void ViewModel::test(){
     setLabel(test);
 }
 
-//Do napisania jutro
 void ViewModel::createReservation(){
     QDate startDate = QDate::fromString(_startDates[_starDateIndex], Qt::SystemLocaleDate);
     QDate endDate = QDate::fromString(_endDates[_endDateIndex],Qt::SystemLocaleDate);
