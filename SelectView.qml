@@ -26,6 +26,7 @@ Item {
     visible: true
     width: 640
     height: 600
+    /*shadows*/
     DropShadow {
         id: appBarShadow
         source: appBar
@@ -77,7 +78,7 @@ Item {
         color: "#80000000"
         smooth: true
     }
-
+    /*Header app Bar*/
     Row{
         id: appBar
         width: root.width
@@ -100,6 +101,7 @@ Item {
 
         }
     }
+    /*Section where we select particular hotel, date, city etc.*/
     Column{
         id: hotelSearchSection
         anchors.top: appBar.bottom
@@ -206,7 +208,7 @@ Item {
                 text: robotMedium.status == FontLoader.Ready ? "REZERWUJ" : ""
                 font.family: robotMedium
                 highlighted: true
-                visible: viewModel.buttonVisibility
+                enabled: viewModel.buttonVisibility
                 Material.accent: Material.Pink
                 MouseArea{
                     anchors.fill: parent

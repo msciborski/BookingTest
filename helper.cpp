@@ -16,25 +16,25 @@ QStringList Helper::createStartDate(){
     return tempStartDates;
 }
 
-QList<QObject*> Helper::createCity(){
+QList<QObject*> Helper::createCity(QObject *parent){
     QList<QObject*> tempCity;
-    City *poznan = new City("Poznań");
-    poznan->setListHotels(Helper::temporaryHotels(poznan->cityName()));
+    City *poznan = new City(parent, "Poznań");
+    poznan->setListHotels(Helper::temporaryHotels(parent, poznan->cityName()));
 //    poznan->listHotels().append(Helper::temporaryRooms(poznan->cityName()));
-    City *warszawa = new City("Warszawa");
-    warszawa->setListHotels(Helper::temporaryHotels(warszawa->cityName()));
+    City *warszawa = new City(parent, "Warszawa");
+    warszawa->setListHotels(Helper::temporaryHotels(parent, warszawa->cityName()));
     //warszawa->listHotels().append(Helper::temporaryRooms(warszawa->cityName()));
-    City *krakow = new City("Kraków");
-    krakow->setListHotels(Helper::temporaryHotels(krakow->cityName()));
+    City *krakow = new City(parent, "Kraków");
+    krakow->setListHotels(Helper::temporaryHotels(parent, krakow->cityName()));
     //krakow->listHotels().append(Helper::temporaryRooms(krakow->cityName()));
-    City *gdansk = new City("Gdańsk");
-    gdansk->setListHotels(Helper::temporaryHotels(gdansk->cityName()));
+    City *gdansk = new City(parent, "Gdańsk");
+    gdansk->setListHotels(Helper::temporaryHotels(parent, gdansk->cityName()));
     //gdansk->listHotels().append(Helper::temporaryRooms(gdansk->cityName()));
-    City *sopot = new City("Sopot");
-    sopot->setListHotels(Helper::temporaryHotels(sopot->cityName()));
+    City *sopot = new City(parent, "Sopot");
+    sopot->setListHotels(Helper::temporaryHotels(parent, sopot->cityName()));
     //sopot->listHotels().append(Helper::temporaryRooms(sopot->cityName()));
-    City *lodz = new City("Łódź");
-    lodz->setListHotels(Helper::temporaryHotels(lodz->cityName()));
+    City *lodz = new City(parent, "Łódź");
+    lodz->setListHotels(Helper::temporaryHotels(parent, lodz->cityName()));
     //lodz->listHotels().append(Helper::temporaryRooms(lodz->cityName()));
     tempCity.append(poznan);
     tempCity.append(warszawa);
@@ -45,51 +45,36 @@ QList<QObject*> Helper::createCity(){
 
     return tempCity;
 }
-QList<QObject*> Helper::temporaryHotels(QString cityName){
+QList<QObject*> Helper::temporaryHotels(QObject *parent, QString cityName){
     QList<QObject*> tempHotels;
     for(int i=1;i<=5;i++){
         QString hotelName = QString(cityName + "%1").arg(i);
         QString address = QString("ul. %1 %2").arg(cityName).arg(i);
-        Hotel *hotel = new Hotel(hotelName,address);
-        hotel->setListRooms(Helper::temporaryRooms(hotelName));
+        Hotel *hotel = new Hotel(parent, hotelName,address);
+        hotel->setListRooms(Helper::temporaryRooms(parent, hotelName));
         tempHotels.append(hotel);
     }
     return tempHotels;
 }
 //Refactor, bo QDate ma funckje daysInMonth-
-QVector<Reservation*> Helper::createReservations(){
+QVector<Reservation*> Helper::createReservations(QObject *parent){
    QVector<Reservation*> reservations;
-   QDate current = QDate::currentDate();
-   int day = current.day();
-   int month = current.month();
-   int year = current.year();
-   for(int i=0;i<10;i++){
+   QDate currentDate = QDate::currentDate();
+   QDate endOfTheYear = QDate(currentDate.year(),12,31);
+   int daysToEnd = currentDate.daysTo(endOfTheYear);
+   for(int i=0;i<15;i++){
        QDate startDate;
        QDate endDate;
        int daysRange;
-       int sMonth;
-       int sDay;
        do{
-            daysRange = rand() % ((8+1)-1) + 1;
-            sMonth = rand() % ((12+1)-month) + month;
-            if(sMonth == 1 || sMonth == 3 || sMonth == 5 || sMonth == 7 || sMonth == 8 || sMonth == 10 || sMonth == 12){
-                sDay = rand() % ((31+1)-day) + day;
-            }else if(sMonth == 2){
-                if((year % 4 == 0 ) && (year % 100 == 0) || (year % 400 == 0)){
-                    sDay = rand() % ((29+1)-day) + day;
-                }else{
-                    sDay = rand() % ((28+1)-day) + day;
-                }
-            }else{
-                sDay = rand() % ((30+1)-day) + day;
-            }
-            //qDebug() << "Days range: " << daysRange << ", day: " << sDay << ", sMonth: " << sMonth << '\n';
-            startDate = QDate(year,sMonth,sDay);
-            endDate = startDate.addDays(daysRange);
-            //qDebug() << "Start date: " << startDate.toString("dd/MM/yyyy") << ", end date: " << endDate.toString("dd/MM/yyyy") << '\n';
+           daysRange = rand() % ((8+1)-1)+1;
+           int daysToAddToCurrent = rand() % ((daysToEnd-0)-0) + 0;
+           startDate = currentDate.addDays(daysToAddToCurrent);
+           endDate = startDate.addDays(daysRange);
+
        }while(!avaiable(reservations,startDate,endDate));
-       User *user = new User("Test","Test","Test@test.pl","123123123");
-       Reservation *reserv = new Reservation(startDate,endDate,user);
+       User *user = new User(parent, "Test","Test","Test@test.pl","123123123");
+       Reservation *reserv = new Reservation(parent, startDate,endDate,user);
        reservations.push_back(reserv);
    }
    return reservations;
@@ -128,16 +113,16 @@ bool Helper::avaiable(QVector<Reservation*> reservations, QDate start, QDate end
     return availability;
 }
 
-QList<QObject*> Helper::temporaryRooms(QString hotelName){
+QList<QObject*> Helper::temporaryRooms(QObject *parent, QString hotelName){
     QList<QObject*> tempRooms;
     for(int i=1;i<=10;i++){
         QString roomName = QString(hotelName + "%1").arg(i);
-        Room *room = new Room(roomName,100.0,5);
+        Room *room = new Room(parent, roomName,100.0,5);
         //qDebug() << room->name() << '\n';
         room->setDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit. \
                        Integer diam nibh, molestie aliquet gravida quis, pellentesque quis diam. Nunc pretium diam tristique ante vestibulum bibendum. \
                        Morbi enim nibh, maximus a neque vitae, tempor finibus lectus. Curabitur ac arcu vestibulum, vulputate ligula eget, blandit ligula");
-        QVector<Reservation*> reservations = createReservations();
+        QVector<Reservation*> reservations = createReservations(parent);
         for(Reservation* reserv : reservations){
             qDebug() << reserv->startDate().toString("dd/MM/yyyy") << " " << reserv->endDate().toString("dd/MM/yyyy") << '\n';
             room->addReservation(reserv);

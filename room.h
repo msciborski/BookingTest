@@ -22,7 +22,7 @@ public:
     Room(QObject *parent);
     Room(QString desc, QString name, double cost, int capacity);
     Room(QObject *parent, QString desc, QString name, double cost, int capacity);
-    Room(QString name, double cost, int capacity);
+    Room(QObject *parent, QString name, double cost, int capacity);
     QVector<bool> ava() const;
     QString desc() const;
     QString name() const;

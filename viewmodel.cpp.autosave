@@ -260,7 +260,6 @@ void ViewModel::test(){
     setLabel(test);
 }
 
-//Do napisania jutro
 void ViewModel::createReservation(){
     QDate startDate = QDate::fromString(_startDates[_starDateIndex], Qt::SystemLocaleDate);
     QDate endDate = QDate::fromString(_endDates[_endDateIndex],Qt::SystemLocaleDate);

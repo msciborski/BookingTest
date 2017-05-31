@@ -29,7 +29,7 @@ Room::Room(QObject *parent, QString desc, QString name, double cost, int capacit
     int days = current.daysTo(endYear);
     _ava.resize(days+1);
 }
-Room::Room(QString name, double cost, int capacity){
+Room::Room(QObject *parent, QString name, double cost, int capacity) : QObject(parent){
     _name = name;
     _cost = cost;
     _capacity = capacity;
@@ -97,18 +97,4 @@ void Room::addReservation(Reservation *reservation){
           daysBetweenStartEnd--;
       }
       _listReservations.append(reservation);
-//    QDate start = reservation->startDate();
-//    QDate end = reservation->endDate();
-//    QDate currentDate = QDate::currentDate();
-//    QDate endOfTheYear(currentDate.year(),12,31);
-//    int daysToEnd = currentDate.daysTo(endOfTheYear);
-//    int daysBetweenStartEnd = start.daysTo(end);
-//    int startToEndYear = start.daysTo(endOfTheYear);
-//    int index = daysToEnd - startToEndYear;
-//    while(daysBetweenStartEnd>0){
-//        _avaiabilty[index] = true;
-//        index++;
-//        daysBetweenStartEnd--;
-//    }
-
 }

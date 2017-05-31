@@ -16,10 +16,10 @@ class Helper
 public:
     Helper();
     static QStringList createStartDate();
-    static QList<QObject*> createCity();
-    static QList<QObject*> temporaryHotels(QString cityName);
-    static QList<QObject*> temporaryRooms(QString hotelName);
-    static QVector<Reservation*> createReservations();
+    static QList<QObject*> createCity(QObject *parent);
+    static QList<QObject*> temporaryHotels(QObject *parent, QString cityName);
+    static QList<QObject*> temporaryRooms(QObject *parent, QString hotelName);
+    static QVector<Reservation*> createReservations(QObject *parent);
 private:
     static bool avaiable(QVector<Reservation*> reservations, QDate start, QDate end);
 

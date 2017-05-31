@@ -71,55 +71,71 @@ Item {
                 text: robotoLight.status == FontLoader.Ready ? "Dane:" : ""
                 Component.onCompleted: print(width, height)
             }
-            TextField{
+            EditedTextField{
                 id: nameTextField
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: inputSectionLabel.bottom
-                width: confirmRoot.width/3.1
-                height: confirmRoot.height/15
-                placeholderText: qsTr("Nazwisko");
-                text: viewModel.userName
-                validator: RegExpValidator{
-                    regExp: /\D+/
-                }
+                anchors.top : inputSectionLabel.bottom
+                widthProperty: confirmRoot.width/3.1
+                heightPropert: confirmRoot.height/15
+                placeHolder: qsTr("Imie")
+                textProperty: viewModel.userName
+                regex: qsTr("[^\\000-\\037\\041-@]+")
             }
-            TextField{
-                id: surnameTextField
+
+//            TextField{
+//                id: nameTextField
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                anchors.top: inputSectionLabel.bottom
+//                width: confirmRoot.width/3.1
+//                height: confirmRoot.height/15
+//                placeholderText: qsTr("Nazwisko");
+//                text: viewModel.userName
+//                validator: RegExpValidator{
+//                    regExp: /\D+/
+//                }
+//            }
+            EditedTextField{
+                id:surnameTextField
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: nameTextField.bottom
-                width: confirmRoot.width/3.1
-                height: confirmRoot.height/15
-                placeholderText: qsTr("Nazwisko");
-                text: viewModel.userSurname
-                validator: RegExpValidator{
-                    regExp: /\D+/
-                }
+                widthProperty: confirmRoot.width/3.1
+                heightPropert: confirmRoot.height/15
+                placeHolder: qsTr("Nazwisko")
+                textProperty: viewModel.userSurname
+                regex: qsTr("[^\\000-\\037\\041-@]+")
             }
-            TextField{
+
+//            TextField{
+//                id: surnameTextField
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                anchors.top: nameTextField.bottom
+//                width: confirmRoot.width/3.1
+//                height: confirmRoot.height/15
+//                placeholderText: qsTr("Nazwisko");
+//                text: viewModel.userSurname
+//                validator: RegExpValidator{
+//                    regExp: /\D+/
+//                }
+//            }
+            EditedTextField{
                 id: emailTextField
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: surnameTextField.bottom
-                width: confirmRoot.width/3.1
-                height: confirmRoot.height/15
-                placeholderText: qsTr("Email");
-                text: viewModel.userEmail
-                validator: RegExpValidator{
-                    id: emailValidator
-                    regExp: /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
-                }
+                widthProperty: confirmRoot.width/3.1
+                heightPropert: confirmRoot.height/15
+                placeHolder: qsTr("Email")
+                textProperty: viewModel.userEmail
+                regex: qsTr("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*")
             }
-            TextField{
+            EditedTextField{
                 id:phoneNumberTextField
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: emailTextField.bottom
-                width: confirmRoot.width/3.1
-                height: confirmRoot.height/15
-                placeholderText: qsTr("Numer telefonu");
-                text: viewModel.userPhoneNumber
-                validator: RegExpValidator{
-                    id: phoneNumberValidator
-                    regExp: /\d+/
-                }
+                widthProperty: confirmRoot.width/3.1
+                heightPropert: confirmRoot.height/15
+                placeHolder: qsTr("Numer")
+                textProperty: viewModel.userPhoneNumber
+                regex: qsTr("^[(]{0,1}[0-9]{3}[)]{0,1}[-\\s\\.]{0,1}[0-9]{3}[-\\s\\.]{0,1}[0-9]{4}$")
             }
 
             Row{
@@ -134,7 +150,7 @@ Item {
                     width: 100
                     highlighted: true
                     Material.accent: Material.Pink
-                    enabled:
+                    enabled: nameTextField.check() && surnameTextField.check() && emailTextField.check() && phoneNumberTextField.check()
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
@@ -222,15 +238,15 @@ Item {
                 rows: 3
                 Label{
                     id: nameSurnameLabel
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr(nameTextField.text + " " + surnameTextField.text) : ""
+                    text: robotoRegular.status == FontLoader.Ready ? qsTr(nameTextField.textProperty + " " + surnameTextField.textProperty) : ""
                 }
                 Label{
                     id: emailLabel
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr(emailTextField.text) : ""
+                    text: robotoRegular.status == FontLoader.Ready ? qsTr(emailTextField.textProperty) : ""
                 }
                 Label{
                     id: numberLabel
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr(phoneNumberTextField.text) : ""
+                    text: robotoRegular.status == FontLoader.Ready ? qsTr(phoneNumberTextField.textProperty) : ""
                 }
             }
             Grid{
