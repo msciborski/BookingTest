@@ -355,7 +355,6 @@ ApplicationWindow {
         SelectView{
         }
         ConfirmView{
-            showTT: true
         }
     }
 }

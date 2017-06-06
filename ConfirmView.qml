@@ -43,7 +43,7 @@ Item {
                 font.family: robotMedium.name
                 font.pixelSize: 30
                 color: "white"
-                text: robotMedium.status == FontLoader.Ready ? "Booking Hotel" : ""
+                text: qsTr("Booking Hotel")
             }
         }
     }
@@ -67,10 +67,9 @@ Item {
                 anchors.topMargin: 15
                 anchors.bottomMargin: 10
                 id: inputSectionLabel
-                font.family: robotoLight
+                font.family: robotoLight.name
                 font.pixelSize: 20
-                text: robotoLight.status == FontLoader.Ready ? "Dane:" : ""
-                Component.onCompleted: print(width, height)
+                text: qsTr("Dane:")
             }
             EditedTextField{
                 id: nameTextField
@@ -79,22 +78,9 @@ Item {
                 widthProperty: confirmRoot.width/3.1
                 heightPropert: confirmRoot.height/15
                 placeHolder: qsTr("Imie")
-                textProperty: viewModel.userName
+                text: viewModel.userName
                 regex: qsTr("[^\\000-\\037\\041-@]+")
             }
-
-//            TextField{
-//                id: nameTextField
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                anchors.top: inputSectionLabel.bottom
-//                width: confirmRoot.width/3.1
-//                height: confirmRoot.height/15
-//                placeholderText: qsTr("Nazwisko");
-//                text: viewModel.userName
-//                validator: RegExpValidator{
-//                    regExp: /\D+/
-//                }
-//            }
             EditedTextField{
                 id:surnameTextField
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -102,23 +88,10 @@ Item {
                 widthProperty: confirmRoot.width/3.1
                 heightPropert: confirmRoot.height/15
                 placeHolder: qsTr("Nazwisko")
-                textProperty: viewModel.userSurname
+                text: viewModel.userSurname
                 regex: qsTr("[^\\000-\\037\\041-@]+")
-                showTooltip: showTT
             }
 
-//            TextField{
-//                id: surnameTextField
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                anchors.top: nameTextField.bottom
-//                width: confirmRoot.width/3.1
-//                height: confirmRoot.height/15
-//                placeholderText: qsTr("Nazwisko");
-//                text: viewModel.userSurname
-//                validator: RegExpValidator{
-//                    regExp: /\D+/
-//                }
-//            }
             EditedTextField{
                 id: emailTextField
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -128,7 +101,6 @@ Item {
                 placeHolder: qsTr("Email")
                 textProperty: viewModel.userEmail
                 regex: qsTr("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*")
-                showTooltip: showTT
             }
             EditedTextField{
                 id:phoneNumberTextField
@@ -137,9 +109,8 @@ Item {
                 widthProperty: confirmRoot.width/3.1
                 heightPropert: confirmRoot.height/15
                 placeHolder: qsTr("Numer")
-                textProperty: viewModel.userPhoneNumber
+                text: viewModel.userName
                 regex: qsTr("^[(]{0,1}[0-9]{3}[)]{0,1}[-\\s\\.]{0,1}[0-9]{3}[-\\s\\.]{0,1}[0-9]{4}$")
-                showTooltip: showTT
             }
 
             Row{
@@ -158,6 +129,11 @@ Item {
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
+                            //console.log(nameTextField.text + " " + surnameTextField.text + " " + phoneNumberTextField.text + " " + emailTextField.text)
+                            viewModel.userName = nameTextField.text
+                            viewModel.userSurname = surnameTextField.text
+                            viewModel.userPhoneNumber = phoneNumberTextField.text
+                            viewModel.userEmail = emailTextField.text
                             viewModel.createReservation();
                             viewModel.indexView = 0
                         }
@@ -202,10 +178,9 @@ Item {
                 anchors.topMargin: 15
                 anchors.bottomMargin: 10
                 id: infoSectionLabel
-                font.family: robotoLight
+                font.family: robotoLight.name
                 font.pixelSize: 20
-                text: robotoLight.status == FontLoader.Ready ? qsTr("Podsumowanie:") : ""
-                Component.onCompleted: print(width, height)
+                text: qsTr("Podsumowanie:")
             }
             Grid{
                 id: infoHotelGrid
@@ -217,20 +192,24 @@ Item {
                 spacing:20
                 Label{
                     id:hotelName
-                    text: robotMedium.status == FontLoader.Ready ? qsTr("Hotel:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Hotel:")
                 }
                 Label{
                     id:hotelNameValue
-                    text: robotMedium.status == FontLoader.Ready ? qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].name) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].name)
                 }
                 Label{
                     id:roomName
-                    text: robotMedium.status == FontLoader.Ready ? qsTr("Pokój:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Pokój:")
                 }
 
                 Label{
                     id: roomNameValue
-                    text: robotMedium.status == FontLoader.Ready ? qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].listRooms[viewModel.roomIndex].name) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].listRooms[viewModel.roomIndex].name)
                 }
             }
             Grid{
@@ -242,15 +221,18 @@ Item {
                 rows: 3
                 Label{
                     id: nameSurnameLabel
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr(nameTextField.textProperty + " " + surnameTextField.textProperty) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(nameTextField.text + " " + surnameTextField.text)
                 }
                 Label{
                     id: emailLabel
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr(emailTextField.textProperty) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(emailTextField.text)
                 }
                 Label{
                     id: numberLabel
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr(phoneNumberTextField.textProperty) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(phoneNumberTextField.text)
                 }
             }
             Grid{
@@ -261,29 +243,33 @@ Item {
                 columns: 2
                 rows:3
                 Label{
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr("Data rozpoczęcia:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Data rozpoczęcia:")
                 }
                 Label{
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr(viewModel.startDates[viewModel.startDateIndex]) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(viewModel.startDates[viewModel.startDateIndex])
                 }
                 Label{
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr("Data zakończenia:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Data zakończenia:")
                 }
                 Label{
-                    text: robotoRegular.status == FontLoader.Ready ? qsTr(viewModel.endDates[viewModel.endDateIndex]) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(viewModel.endDates[viewModel.endDateIndex])
                 }
 
                 Label{
-                    text: robotoRegular.status == FontLoader.Ready ? "Do zapłaty:" : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Do zapłaty:")
                 }
 
                 Label{
                     id:priceLabel
-                    text: robotoRegular.status == FontLoader.Ready ? viewModel.totalPrice : ""
+                    font.family: robotoRegular.name
+                    text: viewModel.totalPrice
                 }
             }
-
-
         }
     }
 }

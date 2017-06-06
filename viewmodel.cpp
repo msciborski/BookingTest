@@ -157,6 +157,7 @@ bool ViewModel::isAvaiable(QList<QObject*> &reservations, const QDate &startDate
         }
     }
     return avaiability;
+    return true;
 }
 
 void ViewModel::checkAvailability(){
@@ -197,7 +198,7 @@ void ViewModel::setEndDate(){
     QDate endOfTheYear(QDate::currentDate().year(),12,31);
     auto daysToEnd = startDate.daysTo(endOfTheYear);
     QStringList tempEndDates;
-    for(int i=1;i<daysToEnd;i++){
+    for(int i=1;i<=daysToEnd;i++){
         tempEndDates.append(startDate.addDays(i).toString("dd.MM.yyyy"));
     }
     setEndDates(tempEndDates);
@@ -214,7 +215,7 @@ QString ViewModel::nearestFree(Room *room, QDate startDate, QDate endDate){
     qDebug() << index << '\n';
     qDebug() << "DaysBetweenStartEnd: " << daysBetweenStartEnd << "\n";
     int i;
-
+    qDebug() << index << '\n';
     for(i = index;i<currentToEndOfTheYear;i++){
         int counter = 0;
         if(tempAva[i] == false){
@@ -246,6 +247,7 @@ QString ViewModel::nearestFree(Room *room, QDate startDate, QDate endDate){
         inc++;
     }
     return "\nNajbliższy wolny termin: " + startNearest.toString("dd/MM/yyyy") + " - " + endNearest.toString("dd/MM/yyyy");
+    return "";
 
 }
 void ViewModel::calculateTotalPrice(){
@@ -271,7 +273,7 @@ void ViewModel::createReservation(){
     User *user = new User(_userName,_userSurname,_userEmail,_userPhoneNumber);
     Reservation *reservation = new Reservation(startDate,endDate,user);
     qobject_cast<Room*>(hotel->listRooms()[_roomIndex])->addReservation(reservation);
-
+    qDebug() << _userName << " " << _userSurname << " " << _userEmail << _userPhoneNumber << '\n';
 }
 
 

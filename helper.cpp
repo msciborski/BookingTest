@@ -11,7 +11,7 @@ QStringList Helper::createStartDate(){
     QDate today = QDate::currentDate();
     QDate endOfTheYear(QDate::currentDate().year(),12,31);
     auto dayToTheEnd = today.daysTo(endOfTheYear);
-    for(int i=0;i<=dayToTheEnd;i++){
+    for(int i=0;i<dayToTheEnd;i++){
         tempStartDates.append(today.addDays(i).toString("dd.MM.yyyy"));
     }
     return tempStartDates;
@@ -113,6 +113,7 @@ bool Helper::avaiable(QVector<Reservation*> reservations, QDate start, QDate end
         availability = true;
     }
     return availability;
+    return false;
 }
 
 QList<QObject*> Helper::temporaryRooms(QObject *parent, QString hotelName){

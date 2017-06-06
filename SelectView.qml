@@ -95,7 +95,7 @@ Item {
                 font.family: robotMedium.name
                 font.pixelSize: 30
                 color: "white"
-                text: robotMedium.status == FontLoader.Ready ? "Booking Hotel" : ""
+                text: "Booking Hotel"
 
             }
 
@@ -121,10 +121,9 @@ Item {
                 anchors.topMargin: 15
                 anchors.bottomMargin: 10
                 id: rootLabel
-                font.family: robotoLight
+                font.family: robotoLight.name
                 font.pixelSize: 20
-                text: robotoLight.status == FontLoader.Ready ? qsTr("Wybierz:") : ""
-                                Component.onCompleted: print(width, height)
+                text: qsTr("Wybierz:")
             }
 
             ComboBox{
@@ -183,7 +182,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onActivated: {
                     viewModel.startDateIndex = index
-                    //Index out of range, bo masz pusta liste z rezerwacjami
+                    console.log(viewModel.startDateIndex)
                     viewModel.setEndDate()
                     viewModel.checkAvailability()
                 }
@@ -205,8 +204,8 @@ Item {
                 id: makeReservationBTN
                 anchors.top: endDateCB.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: robotMedium.status == FontLoader.Ready ? "REZERWUJ" : ""
-                font.family: robotMedium
+                text: qsTr("REZERWUJ")
+                font.family: robotMedium.name
                 highlighted: true
                 enabled: viewModel.buttonVisibility
                 Material.accent: Material.Pink
@@ -222,7 +221,8 @@ Item {
                 id: avaiableInformationLabel
                 anchors.top: makeReservationBTN.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: robotoRegular.status == FontLoader.Ready ? qsTr(viewModel.label) : ""
+                font.family: robotoRegular.name
+                text: qsTr(viewModel.label)
                 font.pixelSize: 10
             }
         }
@@ -248,9 +248,9 @@ Item {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.topMargin: 10
-                font.family: robotoLight
+                font.family: robotoLight.name
                 font.pixelSize: 20
-                text: robotoLight.status == FontLoader.Ready ? qsTr("Detale:") : ""
+                text: qsTr("Detale:")
             }
             Pane{
                 id: hotelImage
@@ -293,44 +293,54 @@ Item {
                 spacing: 20
                 Label{
                     id: cityName
-                    text:robotMedium.status == FontLoader.Ready ? qsTr("Miasto:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Miasto:")
                 }
                 Label{
                     id: cityNameValue
-                    text: robotMedium.status == FontLoader.Ready ? qsTr(viewModel.listCities[viewModel.cityIndex].cityName) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(viewModel.listCities[viewModel.cityIndex].cityName)
                 }
                 Label{
                     id: hotelName
-                    text: robotMedium.status == FontLoader.Ready ? qsTr("Hotel:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Hotel:")
                 }
                 Label{
                     id:hotelNameValue
-                    text: robotMedium.status == FontLoader.Ready ? qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].name) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].name)
                 }
                 Label{
                     id: hotelAddress
-                    text: robotMedium.status == FontLoader.Ready ? qsTr("Adres:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Adres:")
                 }
                 Label{
                     id: hotelAddressValue
-                    text: robotMedium.status == FontLoader.Ready ? qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].address) : ""
+                    font.family: robotoRegular.name
+                    text: qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].address)
                 }
                 Label{
                     id: capacity
-                    text: robotMedium.status == FontLoader.Ready ? qsTr("Ilość miejsc:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Ilość miejsc:")
                 }
                 Label{
                     id: capcityValue
-                    text: robotMedium.status == FontLoader.Ready ? viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].listRooms[viewModel.roomIndex].capacity : ""
+                    font.family: robotoRegular.name
+                    text: viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].listRooms[viewModel.roomIndex].capacity
 
                 }
                 Label{
                     id: cost
-                    text: robotMedium.status == FontLoader.Ready ? qsTr("Cena:") : ""
+                    font.family: robotMedium.name
+                    text: qsTr("Cena:")
                 }
                 Label{
                     id: costValue
-                    text: robotMedium.status == FontLoader.Ready ? viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].listRooms[viewModel.roomIndex].cost : ""
+                    font.family: robotoRegular.name
+                    text: viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].listRooms[viewModel.roomIndex].cost
 
                 }
             }
@@ -341,7 +351,8 @@ Item {
                 anchors.left: parent.left
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.Wrap
-                text: robotMedium.status == FontLoader.Ready ? qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].listRooms[viewModel.roomIndex].desc) : ""
+                font.family: robotoRegular.name
+                text: qsTr(viewModel.listCities[viewModel.cityIndex].listHotels[viewModel.hotelIndex].listRooms[viewModel.roomIndex].desc)
 
             }
         }

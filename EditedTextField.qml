@@ -2,25 +2,28 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.1
 Item {
-    property bool showTooltip
     /*properties*/
     property real widthProperty
     property real heightPropert
     property string placeHolder
     property string textProperty
     property string regex
+    property alias text: textField.text
     width: widthProperty
     height: heightPropert
     function check() {
-        if(textField.text == "" && showTooltip) {
-            ToolTip.show(qsTr("This field cannot be empty."));
-
-            return false;
-        }else if(!textField.text.toString().match(regex) && showTooltip){
-            ToolTip.show(qsTr("Wrong data."));
+        console.log(text)
+        if(textField.text == "") {
+            //textField.forceActiveFocus()
+            ToolTip.show("Empty field",500)
             return false;
         }
-
+        if(!textField.text.toString().match(regex)){
+            //textField.forceActiveFocus()
+            ToolTip.show("Incorrect data.",500)
+            return false;
+        }
+        ToolTip.hide();
         return true;
     }
     TextField{
@@ -28,19 +31,11 @@ Item {
         width: parent.width
         height: parent.height
         placeholderText: placeHolder
-        text: textProperty
-//        onEditingFinished: {
-//            check()
-//        }
-
-        onFocusChanged: {
+        onDisplayTextChanged: {
             check()
         }
-
-//        onEditingFinished: {
-//            check()
-//        }
     }
+
 
 
 
