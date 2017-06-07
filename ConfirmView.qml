@@ -5,7 +5,13 @@ import QtQuick.Controls.Material 2.1
 import QtGraphicalEffects 1.0
 
 Item {
-    property bool showTT: false
+    function reset(){
+        nameTextField.text = "";
+        surnameTextField.text = "";
+        emailTextField.text = "";
+        phoneNumberTextField.text = "";
+    }
+
     id: confirmRoot
     visible: true
     width: 640
@@ -110,7 +116,7 @@ Item {
                 heightPropert: confirmRoot.height/15
                 placeHolder: qsTr("Numer")
                 text: viewModel.userName
-                regex: qsTr("^[(]{0,1}[0-9]{3}[)]{0,1}[-\\s\\.]{0,1}[0-9]{3}[-\\s\\.]{0,1}[0-9]{4}$")
+                regex: qsTr("^[(]{0,1}[0-9]{3}[)]{0,1}[-\\s\\.]{0,1}[0-9]{3}[-\\s\\.]{0,1}[0-9]{3}$")
             }
 
             Row{
@@ -135,6 +141,7 @@ Item {
                             viewModel.userPhoneNumber = phoneNumberTextField.text
                             viewModel.userEmail = emailTextField.text
                             viewModel.createReservation();
+                            reset()
                             viewModel.indexView = 0
                         }
                     }
